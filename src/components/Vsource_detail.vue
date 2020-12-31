@@ -56,7 +56,7 @@
       this.aid = aid;
       var _this = this;
       $.ajax({
-        url: 'http://112.74.79.57:8888/api/comments?article_id=' + _this.aid,
+        url: 'http://127.0.0.1:8000/api/comments?article_id=' + _this.aid,
         type: 'get',
         success: function (ret) {
           _this.comment_tree = ret.data;
@@ -72,7 +72,7 @@
         }
         var _this = this;
         $.ajax({
-          url: "http://112.74.79.57:8888/api/comments",
+          url: "http://127.0.0.1:8000/api/comments",
           type: "post",
           data: {
             article_id: _this.aid,

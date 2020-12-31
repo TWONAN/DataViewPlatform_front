@@ -51,7 +51,7 @@
       changeItem() {
         var _this = this;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/data_detail/',
+          url: 'http://127.0.0.1:8000/api/data_detail/',
           type: 'post',
           data: {
             username: _this.$store.state.username,

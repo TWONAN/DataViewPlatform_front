@@ -42,13 +42,13 @@
 
           <ul v-if="this.$store.state.token" class="nav navbar-nav navbar-right">
             <li><a href="#">{{this.$store.state.username}}</a></li>
-            <li><a href="http://112.74.79.57" @click="logout">注销</a></li>
+            <li><a href="http://127.0.0.1:8080" @click="logout">注销</a></li>
           </ul>
           <ul v-else class="nav navbar-nav navbar-right">
             <li>
               <router-link to="/auth_login">登录</router-link>
             </li>
-            <li><a href="http://112.74.79.57:8888/api/reg/">注册</a></li>
+            <li><a href="http://127.0.0.1:8000/api/reg/">注册</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

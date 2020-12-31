@@ -34,7 +34,7 @@
       addArticle() {
         var _this = this;
         $.ajax({
-          url: "http://112.74.79.57:8888/api/article/",
+          url: "http://127.0.0.1:8000/api/article/",
           type: 'post',
           data: {
             title: _this.title,
@@ -44,7 +44,7 @@
           },
           success: function (ret) {
             if (ret.code === 1000) {
-              alert("提交成功");
+              alert("又是满满感想的一天啦~");
               _this.$router.push({path: '/source_share'})
             } else {
               alert(ret.msg)

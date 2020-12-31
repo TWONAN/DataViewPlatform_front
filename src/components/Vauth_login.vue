@@ -46,7 +46,7 @@
         captchaObj.onSuccess(function () {
           var validate = captchaObj.getValidate();
           $.ajax({
-            url: "http://112.74.79.57:8888/api/login/", // 进行二次验证
+            url: "http://127.0.0.1:8000/api/login/", // 进行二次验证
             type: "post",
             dataType: "json",
             data: {
@@ -106,7 +106,7 @@
         // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
       };
       $.ajax({
-        url: "http://112.74.79.57:8888/api/pc-geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "http://127.0.0.1:8000/api/pc-geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function (data) {

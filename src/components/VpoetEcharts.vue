@@ -23,7 +23,7 @@
         //发送ajax请求
         var _this = this;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/poetrating/',
+          url: 'http://127.0.0.1:8000/api/poetrating/',
           type: 'get',
           success: function (ret) {
             if (ret.code === 1000) {

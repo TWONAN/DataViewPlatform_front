@@ -28,7 +28,7 @@
       addArticle() {
         var _this = this;
         $.ajax({
-          url: "http://112.74.79.57:8888/api/our_poem/",
+          url: "http://127.0.0.1:8000/api/our_poem/",
           type: 'post',
           data: {
             title: _this.title,
@@ -38,7 +38,7 @@
           },
           success: function (ret) {
             if (ret.code === 1000) {
-              alert("提交成功");
+              alert("满腹诗书再创一首！");
               _this.$router.push({path: '/our_poem'})
             } else {
               alert(ret.msg)

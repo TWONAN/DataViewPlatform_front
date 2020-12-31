@@ -116,7 +116,7 @@
     mounted() {
       var _this = this;
       $.ajax({
-        url: 'http://112.74.79.57:8888/api/our_poem/',
+        url: 'http://127.0.0.1:8000/api/our_poem/',
         type: 'get',
         data: {
           page: _this.page.index
@@ -144,7 +144,7 @@
       remove(p_id) {
         var _this = this;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/our_poem/',
+          url: 'http://127.0.0.1:8000/api/our_poem/',
           type: 'delete',
           data: {
             pid: p_id
@@ -164,7 +164,7 @@
         var _this = this;
         _this.page.index = i;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/our_poem/',
+          url: 'http://127.0.0.1:8000/api/our_poem/',
           type: 'get',
           data: {
             page: i

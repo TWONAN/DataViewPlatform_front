@@ -8,7 +8,7 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 800px">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
               aria-hidden="true">&times;</span></button>
@@ -27,8 +27,15 @@
                 </Select>
               </FormItem>
               <FormItem label="做点什么呢？">
-                <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-                       placeholder="Enter something..."></Input>
+                <!--                <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}"-->
+                <!--                       placeholder="Enter something..."></Input>-->
+                <editor id="editor_id" height="50px" width="500px" :content.sync="editorText"
+                        :afterChange="afterChange()"
+                        pluginsPath="../../../static/kindeditor/plugins/"
+                        :loadStyleMode="false">
+                  <!--                  @on-content-change="onContentChange"-->
+
+                </editor>
               </FormItem>
               <FormItem label="状态">
                 <RadioGroup v-model="formItem.radio">
@@ -45,6 +52,34 @@
         </div>
       </div>
     </div>
+    <!-- changeModal -->
+    <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="changeModalLabel">修改完成状态</h4>
+          </div>
+          <div class="modal-body">
+            <RadioGroup v-model="changestatus">
+              <Radio label="1">
+                <Icon type="logo-apple"></Icon>
+                <span>完成</span>
+              </Radio>
+              <Radio label="0">
+                <Icon type="logo-android"></Icon>
+                <span>未完成</span>
+              </Radio>
+            </RadioGroup>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" @click="changeStatus">确认</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="demo-split">
       <Split v-model="split1">
         <div slot="left" class="demo-split-pane left">
@@ -52,15 +87,23 @@
           <div>
             <strong>想和男男做的事</strong>
             <br><br>
-            <List border>
-              <ListItem v-for="(item,index) in left_list" :key="index">
-                内容:{{item.content}}
-                天气:{{item.weather}}
-                状态:{{item.status}}
-                时间:{{item.create_time}}
+            <List item-layout="vertical">
+              <ListItem v-for="item in left_list" :key="item.title">
+                <ListItemMeta :avatar="item.avatar" :title="item.title" :description="item.description"/>
+                <{{item.serial_number}}>
+                <div v-html="item.content"></div>
                 <template slot="action">
                   <li>
-                    <a href="">编辑</a>
+                    天气：
+                    {{item.weather}}
+                  </li>
+                  <li data-toggle="modal" data-target="#changeModal" @click="getWid(item.w_id)">
+                    完成状态：
+                    {{item.status}}
+                  </li>
+                  <li>
+                    时间：
+                    {{item.create_time}}
                   </li>
                 </template>
               </ListItem>
@@ -79,15 +122,23 @@
           <div>
             <strong>想和沐沐做的事</strong>
             <br><br>
-            <List border>
-              <ListItem v-for="(item, index) in right_list" :key="index">
-                内容:{{item.content}}
-                天气:{{item.weather}}
-                状态:{{item.status}}
-                时间:{{item.create_time}}
+            <List item-layout="vertical">
+              <ListItem v-for="item in right_list" :key="item.title">
+                <ListItemMeta :avatar="item.avatar" :title="item.title" :description="item.description"/>
+                <{{item.serial_number}}>
+                <div v-html="item.content"></div>
                 <template slot="action">
                   <li>
-                    <a href="">编辑</a>
+                    天气：
+                    {{item.weather}}
+                  </li>
+                  <li data-toggle="modal" data-target="#changeModal" @click="getWid(item.w_id)">
+                    完成状态：
+                    {{item.status}}
+                  </li>
+                  <li>
+                    时间：
+                    {{item.create_time}}
                   </li>
                 </template>
               </ListItem>
@@ -113,6 +164,7 @@
     inject: ['reload'],
     data() {
       return {
+        editorText: '',
         usertoken: this.$store.state.token,
         username: this.$store.state.username,
         split1: 0.5,
@@ -133,12 +185,14 @@
           textarea: '',
           radio: '0'
         },
+        changestatus: "0",
+        wid: ""
       }
     },
     mounted() {
       var _this = this;
       $.ajax({
-        url: 'http://112.74.79.57:8888/api/wanna_to_do/',
+        url: 'http://127.0.0.1:8000/api/wanna_to_do/',
         type: 'get',
         data: {
           page_left: _this.page_left.index,
@@ -154,7 +208,7 @@
               _this.left_list.push(ret.left[i])
             }
             for (var j = 0; j < ret.right.length; j++) {
-              _this.right_list.push(ret.right[i])
+              _this.right_list.push(ret.right[j])
             }
           } else {
             alert(ret.msg)
@@ -166,18 +220,18 @@
       add_things() {
         var _this = this;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
+          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
           type: 'post',
           data: {
             username: _this.username,
             usertoken: _this.usertoken,
-            content: _this.formItem.textarea,
+            content: _this.editorText,
             weather: _this.formItem.select,
             status: _this.formItem.radio,
           },
           success: function (ret) {
             if (ret.code === 1000) {
-              alert("提交成功");
+              alert("又多一件想做的事啦~");
               _this.$router.push({path: '/wanna_to_do'});
               _this.reload()
             } else {
@@ -191,7 +245,7 @@
         var _this = this;
         _this.page_left.index = i;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
+          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
           type: 'get',
           data: {
             page_left: i
@@ -213,7 +267,7 @@
         var _this = this;
         _this.page_right.index = i;
         $.ajax({
-          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
+          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
           type: 'get',
           data: {
             page_right: i
@@ -231,6 +285,33 @@
         })
 
       },
+      afterChange() {
+      },
+      changeStatus() {
+        var _this = this;
+        $.ajax({
+          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
+          type: 'post',
+          data: {
+            username: _this.username,
+            usertoken: _this.usertoken,
+            wid: _this.wid,
+            changeStatus: _this.changestatus
+          },
+          success: function (ret) {
+            if (ret.code === 1000) {
+              alert("修改成功啦~");
+              _this.$router.push({path: '/wanna_to_do'});
+              _this.reload()
+            } else {
+              alert(ret.msg)
+            }
+          }
+        })
+      },
+      getWid(wid) {
+        this.wid = wid;
+      }
     },
   }
 </script>
@@ -245,11 +326,12 @@
   }
 
   .right {
-    background-color: #f8f8f9;
+    background-color: #AED6F1;
   }
 
   .left {
-    background-color: #f8f8f9;
+    background-color: #FDCABF;
+
   }
 
   .add_thing {
