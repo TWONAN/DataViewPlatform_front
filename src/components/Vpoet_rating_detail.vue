@@ -48,7 +48,7 @@
       getRating() {
         var _this = this;
         $.ajax({
-          url: "http://127.0.0.1:8000/api/poetrating/",
+          url: "http://112.74.79.57:8888/api/poetrating/",
           type: "get",
           success: function (ret) {
             if (ret.code === 1000) {
@@ -71,7 +71,7 @@
         var tmp_poet_list = [];
         var tmp_button = [];
         $.ajax({
-          url: "http://127.0.0.1:8000/api/poetrating/?page=" + item,
+          url: "http://112.74.79.57:8888/api/poetrating/?page=" + item,
           type: "get",
           success: function (ret) {
             if (ret.code === 1000) {

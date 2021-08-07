@@ -192,7 +192,7 @@
     mounted() {
       var _this = this;
       $.ajax({
-        url: 'http://127.0.0.1:8000/api/wanna_to_do/',
+        url: 'http://112.74.79.57:8888/api/wanna_to_do/',
         type: 'get',
         data: {
           page_left: _this.page_left.index,
@@ -220,7 +220,7 @@
       add_things() {
         var _this = this;
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
+          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
           type: 'post',
           data: {
             username: _this.username,
@@ -245,7 +245,7 @@
         var _this = this;
         _this.page_left.index = i;
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
+          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
           type: 'get',
           data: {
             page_left: i
@@ -267,7 +267,7 @@
         var _this = this;
         _this.page_right.index = i;
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
+          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
           type: 'get',
           data: {
             page_right: i
@@ -290,7 +290,7 @@
       changeStatus() {
         var _this = this;
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/wanna_to_do/',
+          url: 'http://112.74.79.57:8888/api/wanna_to_do/',
           type: 'post',
           data: {
             username: _this.username,

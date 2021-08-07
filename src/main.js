@@ -19,7 +19,7 @@ Vue.use(VueKindEditor);
 Vue.use(ViewUI);
 Vue.config.productionTip = false;
 Vue.prototype.$echarts = echarts;
-Vue.prototype.$host = 'http://127.0.0.1:8000/';// 服务器路径常量
+Vue.prototype.$host = 'http://112.74.79.57:8888/';// 服务器路径常量
 new Vue({
   el: '#app',
   router,

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>管理员正在好好反省自己，并且好好完成新模块，让沐沐消气~</h1>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">

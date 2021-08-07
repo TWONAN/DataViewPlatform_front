@@ -34,7 +34,7 @@
       addArticle() {
         var _this = this;
         $.ajax({
-          url: "http://127.0.0.1:8000/api/article/",
+          url: "http://112.74.79.57:8888/api/article/",
           type: 'post',
           data: {
             title: _this.title,

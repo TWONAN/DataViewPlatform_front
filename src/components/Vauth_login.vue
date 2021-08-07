@@ -46,7 +46,7 @@
         captchaObj.onSuccess(function () {
           var validate = captchaObj.getValidate();
           $.ajax({
-            url: "http://127.0.0.1:8000/api/login/", // 进行二次验证
+            url: "http://112.74.79.57:8888/api/login/", // 进行二次验证
             type: "post",
             dataType: "json",
             data: {
@@ -59,7 +59,7 @@
             success: function (ret) {
               if (ret.code === 1000) {
                 console.log(ret.msg);
-                _this.$store.commit('saveCookie', {'username': _this.name, 'token': ret.token});
+                _this.$store.commit('saveCookie', {'username': _this.name, 'token': ret.token, 'avatar': ret.avatar});
                 var url = _this.$route.query.backUrl;
                 if (url) {
                   _this.$router.push({path: url})
@@ -106,7 +106,7 @@
         // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
       };
       $.ajax({
-        url: "http://127.0.0.1:8000/api/pc-geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "http://112.74.79.57:8888/api/pc-geetest/register?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -133,16 +133,17 @@
     border: 1px solid #E2E3E5;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 35%;
     margin-left: -185px;
-    margin-top: -200px;
+    /*margin-top: 10px;*/
+    background-color: #666666;
   }
 
   #logo {
     width: 370px;
     height: 95px;
     font-size: 30px;
-    color: #676A6C;
+    color: white;
     line-height: 95px;
     margin-left: 40px;
   }
@@ -151,12 +152,14 @@
     width: 295px;
     height: 50px;
     margin-left: 40px;
+    margin-bottom: 20px;
   }
 
   #password {
     width: 295px;
     height: 50px;
     margin-left: 40px;
+    margin-bottom: 20px;
   }
 
 

@@ -12,6 +12,9 @@ import Vpoet_rating_detail from '@/components/Vpoet_rating_detail'
 import Vadd_article from '@/components/Vadd_article'
 import Vour_poem from '@/components/Vour_poem'
 import Vadd_poem from '@/components/Vadd_poem'
+import Vprivate_index from '@/components/Vprivate_index'
+import Vnew_start from '@/components/Vnew_start'
+import Vnew_index from '@/components/Vnew_index'
 
 Vue.use(Router);
 
@@ -104,6 +107,32 @@ export default new Router({
       meta: {
         requireAuth: true
       }
-    }
+    },
+    {
+      path: '/private_index',
+      name: 'private_index',
+      component: Vprivate_index,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/new_start',
+      name: 'new_start',
+      component: Vnew_start,
+      meta: {
+        requireAuth: true,
+        index: 1,//meta对象的index用来定义当前路由的层级,由小到大,由低到高
+      }
+    },
+    {
+      path: '/new_index',
+      name: 'new_index',
+      component: Vnew_index,
+      meta: {
+        requireAuth: true,
+        index: 0
+      }
+    },
   ]
 })

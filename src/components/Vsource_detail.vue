@@ -1,14 +1,15 @@
 <template>
   <div>
-    <h3>{{this.t}}</h3>
+    <Divider><h3>{{this.t}}</h3></Divider>
     <div v-html="this.c"></div>
     <!--    显示评论-->
-    <p>评论列表</p>
+    <Divider class="comment-list"><p>评论列表</p></Divider>
+
     <ul class="list-group">
       <li class="list-group-item" v-for="(item,index) in this.comment_tree">
         <div>
           {{index+1}} 楼 &nbsp;{{item.username}} &nbsp;{{item.create_time}}
-          <a href="javascript:void(0);" @click="reply(item.user,item.username)">回复</a>
+          <a href="javascript:void(0);" @click="reply(item.pk,item.username)">回复</a>
           <div>{{item.content}}</div>
         </div>
         <div v-if="item.parent_comment_id" class="well">
@@ -37,6 +38,8 @@
 <script>
   export default {
     name: "Vsource_detail",
+    // 注入reload方法
+    inject: ['reload'],
     data() {
       return {
         c: '',
@@ -56,7 +59,7 @@
       this.aid = aid;
       var _this = this;
       $.ajax({
-        url: 'http://127.0.0.1:8000/api/comments?article_id=' + _this.aid,
+        url: 'http://112.74.79.57:8888/api/comments?article_id=' + _this.aid,
         type: 'get',
         success: function (ret) {
           _this.comment_tree = ret.data;
@@ -72,7 +75,7 @@
         }
         var _this = this;
         $.ajax({
-          url: "http://127.0.0.1:8000/api/comments",
+          url: "http://112.74.79.57:8888/api/comments",
           type: "post",
           data: {
             article_id: _this.aid,
@@ -88,6 +91,7 @@
               // _this.$router.push({path: '/source_detail'});
               $("#comment_detail").val("");
               _this.pid = "";
+              _this.reload();
             }
             // 评论为空
             else if (ret.code === 10004) {
@@ -110,5 +114,7 @@
 </script>
 
 <style scoped>
-
+.comment-list{
+  padding-top: 100px;
+}
 </style>

@@ -28,7 +28,7 @@
         var _this = this;
         var $btn = $(el).button("loading");
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/poetrating/',
+          url: 'http://112.74.79.57:8888/api/poetrating/',
           type: 'post',
           success: function (ret) {
             if (ret.code === 1000) {

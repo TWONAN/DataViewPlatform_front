@@ -60,7 +60,7 @@
               </div>
             </div>
           </div>
-          <!--          每页十条-->
+          <!--          每页5条-->
           <Page class="page"
                 :total="page.total"
                 :current="page.index"
@@ -76,7 +76,6 @@
 </template>
 
 <script>
-
   export default {
     name: "Vsource_share",
     // 注入reload方法
@@ -94,7 +93,7 @@
     mounted() {
       var _this = this;
       $.ajax({
-        url: 'http://127.0.0.1:8000/api/article/',
+        url: 'http://112.74.79.57:8888/api/article/',
         type: 'get',
         data: {
           page: _this.page.index
@@ -117,7 +116,7 @@
       delete_article(aid) {
         var _this = this;
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/article/',
+          url: 'http://112.74.79.57:8888/api/article/',
           type: 'delete',
           data: {
             aid: aid,
@@ -132,7 +131,7 @@
         var _this = this;
         _this.page.index = i;
         $.ajax({
-          url: 'http://127.0.0.1:8000/api/article/',
+          url: 'http://112.74.79.57:8888/api/article/',
           type: 'get',
           data: {
             page: i
